@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Power Tech — Assistência Técnica</title>
+  <style>
+    :root{--bg:#071226;--card:#0f2740;--accent:#f6b400;--muted:#9fb0c7;--glass:rgba(255,255,255,0.03)}
+    *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{margin:0;min-height:100vh;background:linear-gradient(180deg,#051220 0%, #071226 60%);color:#e8f4ff}
+    .container{max-width:1100px;margin:24px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{display:flex;flex-direction:column}
+    .brand{font-weight:800;font-size:22px;color:var(--accent);letter-spacing:1px}
+    .sub{font-size:12px;color:var(--muted)}
+    .hero{display:grid;grid-template-columns:1fr 380px;gap:24px;margin-top:18px}
+    .card{background:var(--card);padding:18px;border-radius:14px;box-shadow:0 6px 20px rgba(2,6,23,0.6)}
+    h1{margin:0;font-size:28px}
+    p.lead{color:var(--muted);margin:8px 0 14px}
+    .prices{display:flex;gap:12px;flex-wrap:wrap}
+    .price-column{flex:1;min-width:220px}
+    table{width:100%;border-collapse:collapse;color:#eaf6ff}
+    th,td{padding:8px 6px;text-align:left;font-size:14px}
+    th{color:var(--accent);font-weight:700;font-size:13px}
+    tr+tr td{border-top:1px dashed rgba(255,255,255,0.04)}
+    .simulator{display:flex;flex-direction:column;gap:10px}
+    label{font-size:13px;color:var(--muted)}
+    select,input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
+    .row{display:flex;gap:10px}
+    .row > *{flex:1}
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;background:var(--accent);color:#071226;font-weight:700;text-decoration:none;border:none;cursor:pointer}
+    .result{background:linear-gradient(90deg,rgba(246,180,0,0.12), rgba(255,255,255,0.02));padding:12px;border-radius:10px;color:#fff}
+    footer{margin-top:18px;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;}.brand{font-size:20px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img src="D19BB101-01E4-434C-8AC8-D10259DC025B.jpeg" alt="Power Tech Logo" style="max-height:60px">
+      <div class="logo">
+        <div class="brand">Power Tech</div>
+        <div class="sub">Assistência Técnica — Conserto de iPhones & Androids</div>
+      </div>
+    </header>
+
+    <div class="hero">
+      <section class="card">
+        <h1>Simulador de orçamento</h1>
+        <p class="lead">Escolha o serviço e o modelo do aparelho para ver o preço estimado. Preços reais e peças originais — confirme no atendimento.</p>
+
+        <div class="simulator">
+          <label for="service">Serviço</label>
+          <select id="service">
+            <option value="tela">Troca de tela</option>
+            <option value="bateria">Troca de bateria</option>
+            <option value="formatacao">Formatação / Otimização</option>
+            <option value="outro">Outro (avaliação)</option>
+          </select>
+
+          <label for="model">Modelo</label>
+          <select id="model"></select>
+
+          <div class="row">
+            <div>
+              <label for="qty">Quantidade</label>
+              <input id="qty" type="number" min="1" value="1">
+            </div>
+            <div>
+              <label>&nbsp;</label>
+              <button id="calc" class="btn">Calcular</button>
+            </div>
+          </div>
+
+          <div id="output" class="result">Selecione serviço e modelo e clique em calcular.</div>
+
+          <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap">
+            <a id="whatsapp" class="btn" style="background:#25D366;color:#042;" href="#" target="_blank">Chamar no WhatsApp</a>
+            <a href="#prices" class="btn" style="background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);">Ver tabela de preços</a>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2 style="margin-top:0;color:var(--accent)">Preços rápidos</h2>
+        <p class="lead">Exemplos retirados da nossa tabela. Valores em R$ — sujeita a disponibilidade de peça.</p>
+
+        <div class="prices">
+          <div class="price-column">
+            <table>
+              <thead><tr><th>Modelo</th><th>Troca de Tela</th></tr></thead>
+              <tbody id="table-screen">
+                <!-- preenchido por JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="price-column">
+            <table>
+              <thead><tr><th>Modelo</th><th>Bateria</th></tr></thead>
+              <tbody id="table-battery">
+                <!-- preenchido por JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </aside>
+    </div>
+
+    <section id="prices" class="card" style="margin-top:18px">
+      <h3 style="margin-top:0">Tabela completa (exemplos)</h3>
+      <p class="lead">Use a simulação acima para obter o valor estimado. Para orçamentos fechados, confirme via WhatsApp.</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div>
+          <h4 style="margin-bottom:6px;color:var(--accent)">Troca de Tela (R$)</h4>
+          <table>
+            <tbody>
+              <!-- Tela data -->
+              <tr><td>iPhone 7</td><td>169.99</td></tr>
+              <tr><td>iPhone 7 Plus</td><td>189.99</td></tr>
+              <tr><td>iPhone 8</td><td>189.99</td></tr>
+              <tr><td>iPhone 8 Plus</td><td>219.99</td></tr>
+              <tr><td>iPhone X</td><td>389.99</td></tr>
+              <tr><td>iPhone XR</td><td>387.97</td></tr>
+              <tr><td>iPhone XS</td><td>489.99</td></tr>
+              <tr><td>iPhone XS Max</td><td>447.07</td></tr>
+              <tr><td>iPhone 11</td><td>489.99</td></tr>
+              <tr><td>iPhone 11 Pro</td><td>549.99</td></tr>
+              <tr><td>iPhone 12</td><td>489.99</td></tr>
+              <tr><td>iPhone 12 Pro Max</td><td>659.99</td></tr>
+              <tr><td>iPhone 13</td><td>589.99</td></tr>
+              <tr><td>iPhone 13 Pro</td><td>519.99</td></tr>
+              <tr><td>iPhone 13 Pro Max</td><td>819.99</td></tr>
+              <tr><td>iPhone 14</td><td>829.87</td></tr>
+              <tr><td>iPhone 14 Pro</td><td>869.97</td></tr>
+              <tr><td>iPhone 14 Pro Max</td><td>959.99</td></tr>
+              <tr><td>iPhone 15</td><td>889.99</td></tr>
+              <tr><td>iPhone 15 Pro</td><td>1289.99</td></tr>
+              <tr><td>iPhone 15 Pro Max</td><td>1589.99</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div>
+          <h4 style="margin-bottom:6px;color:var(--accent)">Troca de Bateria (R$)</h4>
+          <table>
+            <tbody>
+              <!-- Bateria data -->
+              <tr><td>iPhone 6</td><td>120</td></tr>
+              <tr><td>iPhone 6S</td><td>150</td></tr>
+              <tr><td>iPhone 6S Plus</td><td>189</td></tr>
+              <tr><td>iPhone 7</td><td>160</td></tr>
+              <tr><td>iPhone 7 Plus</td><td>175</td></tr>
+              <tr><td>iPhone 8</td><td>160</td></tr>
+              <tr><td>iPhone 8 Plus</td><td>189</td></tr>
+              <tr><td>iPhone X</td><td>215</td></tr>
+              <tr><td>iPhone XS Max</td><td>299</td></tr>
+              <tr><td>iPhone XR</td><td>299</td></tr>
+              <tr><td>iPhone 11</td><td>350</td></tr>
+              <tr><td>iPhone 11 Pro</td><td>399</td></tr>
+              <tr><td>iPhone 12 / 12 Pro</td><td>450</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <footer>
+        <p>Power Tech — Atendimento rápido • Garantia de serviço • Peças originais quando disponível</p>
+      </footer>
+    </section>
+
+  </div>
+
+  <script>
+    // Dados de preços
+    const screenPrices = {
+      "iPhone 7":169.99,
+      "iPhone 7 Plus":189.99,
+      "iPhone 8":189.99,
+      "iPhone 8 Plus":219.99,
+      "iPhone X":389.99,
+      "iPhone XR":387.97,
+      "iPhone XS":489.99,
+      "iPhone XS Max":447.07,
+      "iPhone 11":489.99,
+      "iPhone 11 Pro":549.99,
+      "iPhone 12":489.99,
+      "iPhone 12 Pro Max":659.99,
+      "iPhone 13":589.99,
+      "iPhone 13 Pro":519.99,
+      "iPhone 13 Pro Max":819.99,
+      "iPhone 14":829.87,
+      "iPhone 14 Pro":869.97,
+      "iPhone 14 Pro Max":959.99,
+      "iPhone 15":889.99,
+      "iPhone 15 Pro":1289.99,
+      "iPhone 15 Pro Max":1589.99
+    };
+
+    const batteryPrices = {
+      "iPhone 6":120,
+      "iPhone 6S":150,
+      "iPhone 6S Plus":189,
+      "iPhone 7":160,
+      "iPhone 7 Plus":175,
+      "iPhone 8":160,
+      "iPhone 8 Plus":189,
+      "iPhone X":215,
+      "iPhone XS Max":299,
+      "iPhone XR":299,
+      "iPhone 11":350,
+      "iPhone 11 Pro":399,
+      "iPhone 12":450
+    };
+
+    const formattingPrice = 79.99; // preço base para formatação/otimização
+
+    // preencher tabelas
+    const tableScreen = document.getElementById('table-screen');
+    Object.entries(screenPrices).forEach(([k,v])=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${k}</td><td>R$ ${v.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>`;
+      tableScreen.appendChild(tr);
+    });
+
+    const tableBattery = document.getElementById('table-battery');
+    Object.entries(batteryPrices).forEach(([k,v])=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td>${k}</td><td>R$ ${v.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>`;
+      tableBattery.appendChild(tr);
+    });
+
+    // popular select de modelos (união de chaves)
+    const modelSelect = document.getElementById('model');
+    const models = Array.from(new Set([...Object.keys(screenPrices), ...Object.keys(batteryPrices)])).sort((a,b)=>a.localeCompare(b));
+    models.forEach(m=>{
+      const opt=document.createElement('option');opt.value=m;opt.textContent=m;modelSelect.appendChild(opt);
+    });
+
+    // calculadora
+    document.getElementById('calc').addEventListener('click',()=>{
+      const service=document.getElementById('service').value;
+      const model=document.getElementById('model').value;
+      const qty=parseInt(document.getElementById('qty').value)||1;
+      let unit=0;
+      if(service==='tela'){
+        unit = screenPrices[model] ?? 0;
+      } else if(service==='bateria'){
+        unit = batteryPrices[model] ?? 0;
+      } else if(service==='formatacao'){
+        unit = formattingPrice;
+      } else {
+        unit = 0; // avaliação
+      }
+
+      const subtotal = unit * qty;
+      const serviceLabel = ({tela:'Troca de tela',bateria:'Troca de bateria',formatacao:'Formatação / otimização',outro:'Avaliação'})[service];
+
+      const out = document.getElementById('output');
+      if(unit===0){
+        out.innerHTML = `<strong>${serviceLabel} — ${model}</strong><br>Preço: <em>R$ sob consulta</em><br>Alguns modelos exigem avaliação técnica. Entre em contato.`;
+      } else {
+        out.innerHTML = `<strong>${serviceLabel} — ${model}</strong><br>Valor unitário: <strong>R$ ${unit.toLocaleString('pt-BR',{minimumFractionDigits:2})}</strong><br>Quantidade: <strong>${qty}</strong><br><hr style=\"border:none;border-top:1px dashed rgba(255,255,255,0.06);margin:8px 0\"><div style=\"font-size:18px\">Total: <strong>R$ ${subtotal.toLocaleString('pt-BR',{minimumFractionDigits:2})}</strong></div>`;
+      }
+    });
+
+    // whatsapp link
+    const wa = document.getElementById('whatsapp');
+    const phone = '5531997430055'; // número real (formato: país+ddd+numero sem sinais)
+    wa.href = `https://wa.me/${phone}?text=${encodeURIComponent('Olá, tudo bem? Tenho interesse em fazer um orçamento com a Power Tech Assistência Técnica. Meu celular está com [descreva o problema: tela quebrada, não carrega, etc.] e gostaria de saber o valor para o reparo. Aguardo retorno, obrigado(a).')}`;
+
+  </script>
+</body>
+</html>
